@@ -1,1 +1,23 @@
+/*
 You might need to do a "go mod init bhg-scanner" or "go mod tidy"
+
+Updates to code:
+
+The code creates two channels, one for the ports and one for the results
+of the open/closed check on the ports. DialTimeout attempts to connect to each
+port, then returns an error if there was an error (or it timed out). If there
+was an error, 0 is piped into results, otherwise, the port number is piped into
+results. Then, another function checks the output of results, and if it's a 0,
+the port is added to closedports, otherwise, the port is added to open ports. 
+The function sorts the open ports list, then prints them, and prints the
+number of closed ports as well. The function returns the number of both open and
+closed ports, which should be the length of the original test set.
+
+I added taking a slice of port numbers to check, rather than scanning a
+range of ports. Useful if you need to check a few specific ports. I also 
+modified the print output to print the open ports and then just print the
+number of closed ports left over. I also added a check to see if the World of
+Warcraft port is open, and a corresponding message for whether the user is
+currently playing WoW or not (it's my partner's favorite game). :)
+
+*/
