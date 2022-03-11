@@ -19,12 +19,12 @@ func main() {
 	router.HandleFunc("/assignments", wyoassign.GetAssignments).Methods("GET")
 	router.HandleFunc("/assignment/{id}", wyoassign.GetAssignment).Methods("GET")
 	router.HandleFunc("/assignment/{id}", wyoassign.DeleteAssignment).Methods("DELETE")
-	router.HandleFunc("/assignment", wyoassign.CreateAssignment).Methods("POST")
-	router.HandleFunc("/assignments/{id}", wyoassign.UpdateAssignment).Methods("PUT")
+	router.HandleFunc("/assignment/{id}", wyoassign.CreateAssignment).Methods("POST")
+	router.HandleFunc("/update/{id}", wyoassign.UpdateAssignment).Methods("PUT")
 
 	http.Handle("/", router)
 
 	//start and listen to requests
-	http.ListenAndServe(":3000", router)
+	http.ListenAndServe(":8000", router)
 
 }

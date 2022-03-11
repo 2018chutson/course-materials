@@ -29,7 +29,7 @@ func InitAssignments() {
 	var assignmnet Assignment
 	assignmnet.Id = "Mike1A"
 	assignmnet.Title = "Lab 4 "
-	assignmnet.Description = "Some lab this guy made yesteday?"
+	assignmnet.Description = "Some lab this guy made yesterday?"
 	assignmnet.Points = 20
 	Assignments = append(Assignments, assignmnet)
 }
@@ -107,10 +107,25 @@ func DeleteAssignment(w http.ResponseWriter, r *http.Request) {
 func UpdateAssignment(w http.ResponseWriter, r *http.Request) {
 	log.Printf("Entering %s end point", r.URL.Path)
 	w.Header().Set("Content-Type", "application/json")
-
+	params := mux.Vars(r)
 	var response Response
-	response.Assignments = Assignments
 
+	// get values from r Form, replace values of assignment with id specified
+
+	r.ParseForm()
+	for _, assignment := range Assignments {
+		if assignment.Id == params["id"] {
+			assignment.Title = r.FormValue("title")
+			assignment.Description = r.FormValue("desc")
+			assignment.Points, _ = strconv.Atoi(r.FormValue("points"))
+			break
+		}
+	}
+	jsonResponse, err := json.Marshal(response)
+	if err != nil {
+		return
+	}
+	w.Write(jsonResponse)
 }
 
 func CreateAssignment(w http.ResponseWriter, r *http.Request) {
@@ -127,6 +142,6 @@ func CreateAssignment(w http.ResponseWriter, r *http.Request) {
 		Assignments = append(Assignments, assignmnet)
 		w.WriteHeader(http.StatusCreated)
 	}
-	w.WriteHeader(http.StatusNotFound)
+	//w.WriteHeader(http.StatusNotFound)
 
 }

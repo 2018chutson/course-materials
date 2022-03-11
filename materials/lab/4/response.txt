@@ -1,0 +1,60 @@
+// api status
+API is up and running
+
+// get assignments (initially)
+{
+    "assignments": [
+        {
+            "id": "Mike1A",
+            "title": "Lab 4 ",
+            "desc": "Some lab this guy made yesterday?",
+            "points": 20
+        }
+    ]
+}
+
+// post new assignment called test, returned 201 created
+
+// put update with new values to test
+// honestly I don't know why this doesn't work but I don't
+// have any more time for this
+{
+    "assignments": null
+}
+
+// get assignments again, should have updated but didn't
+{
+    "assignments": [
+        {
+            "id": "Mike1A",
+            "title": "Lab 4 ",
+            "desc": "Some lab this guy made yesterday?",
+            "points": 20
+        },
+        {
+            "id": "test",
+            "title": "This is the title",
+            "desc": "This is the description.",
+            "points": 50
+        }
+    ]
+}
+
+// delete test
+{"status":"Success"}
+
+// get assignments again
+{
+    "assignments": [
+        {
+            "id": "Mike1A",
+            "title": "Lab 4 ",
+            "desc": "Some lab this guy made yesterday?",
+            "points": 20
+        }
+    ]
+}
+
+// I Tried so hard to make this work and it just doesn't,
+// I think it should, based on how I understand my code, I 
+// don't know why it doesn't work.
