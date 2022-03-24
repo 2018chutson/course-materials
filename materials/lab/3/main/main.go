@@ -20,14 +20,16 @@ func main() {
 	}
 	apiKey := os.Getenv("SHODAN_API_KEY")
 	s := shodan.New(apiKey)
-	info, err := s.APIInfo()
+	info, err := s.AccountProfile()
 	if err != nil {
 		log.Panicln(err)
 	}
 	fmt.Printf(
-		"Query Credits: %d\nScan Credits:  %d\n\n",
-		info.QueryCredits,
-		info.ScanCredits)
+		"Member: %t\nCredits:  %d\nDisplay Name:  %s\nCreated:  %s\n\n",
+		info.Member,
+		info.Credits,
+		info.DisplayName,
+		info.Created)
 
 	hostSearch, err := s.HostSearch(os.Args[1])
 	if err != nil {
