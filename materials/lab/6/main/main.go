@@ -10,6 +10,9 @@ import (
 	"github.com/gorilla/mux"
 )
 
+// I can't get scrapeapi to import this package, so I put LOG_LEVEL in there
+// SEE SCRAPEAPI.GO FOR LOG_LEVEL
+
 //TODO_1: Logging right now just happens, create a global constant integer LOG_LEVEL
 //TODO_1: When LOG_LEVEL = 0 DO NOT LOG anything
 //TODO_1: When LOG_LEVEL = 1 LOG API details only
@@ -28,13 +31,13 @@ func main() {
 
 	router.HandleFunc("/indexer", scrape.IndexFiles).Methods("GET")
 	router.HandleFunc("/search", scrape.FindFile).Methods("GET")
-	//TODO_2 router.HandleFunc("/addsearch/{regex}", scrape.TODOREPLACE).Methods("GET")
-	//TODO_3 router.HandleFunc("/clear", scrape.TODOREPLACE).Methods("GET")
-	//TODO_4 router.HandleFunc("/reset", scrape.TODOREPLACE).Methods("GET")
+	router.HandleFunc("/addsearch/{regex}", scrape.AddRE).Methods("GET")
+	router.HandleFunc("/clear", scrape.Clear).Methods("GET")
+	router.HandleFunc("/reset", scrape.Reset).Methods("GET")
 
 	http.Handle("/", router)
 
-	//start and listen to requests
+	//start and listen to requestsS
 	http.ListenAndServe(":3000", router)
 
 }
