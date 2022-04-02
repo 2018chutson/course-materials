@@ -16,7 +16,7 @@ import (
 )
 
 // I PUT LOG LEVEL IN HERE BECAUSE I COULDN'T GET IT TO WORK IN MAIN
-const LOG_LEVEL = 2
+const LOG_LEVEL = 1
 
 //==========================================================================\\
 
@@ -206,7 +206,7 @@ func IndexFiles(w http.ResponseWriter, r *http.Request) {
 
 	safeLoc := rootDir + location[0]
 
-	if locOK && len(safeLoc) > 0 {
+	if locOK && len(location[0]) > 0 {
 		w.WriteHeader(http.StatusOK)
 
 	} else {
@@ -227,12 +227,10 @@ func IndexFiles(w http.ResponseWriter, r *http.Request) {
 	regex, regexOK := r.URL.Query()["regex"]
 	if regexOK {
 		filepath.Walk(safeLoc, walkFn2(w, `(i?)`+regex[0]))
-	} else {
-		w.WriteHeader(http.StatusOK)
 	}
 	//   call filepath.Walk(location[0], walkFn2(w, `(i?)`+regex[0]))
 	// else run code to locate files matching stored regular expression
-	if err := filepath.Walk(safeLoc, walkFn(w)); err != nil {
+	if err := filepath.Walk(location[0], walkFn(w)); err != nil {
 		if LOG_LEVEL > 0 {
 			log.Panicln(err)
 		}
